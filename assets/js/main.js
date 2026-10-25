@@ -47,6 +47,16 @@
   onScroll();
   toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }); });
 
+  /* ---------- Header logo: hidden while the big hero logo is on screen ---------- */
+  var heroLogo = $('.hero__logo');
+  if (heroLogo && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      header.classList.toggle('show-brand', !entries[0].isIntersecting);
+    }, { rootMargin: '-80px 0px 0px 0px' }).observe(heroLogo);
+  } else {
+    header.classList.add('show-brand');
+  }
+
   /* ---------- Mobile menu ---------- */
   var burger = $('#burger');
   function setMenu(open) {
